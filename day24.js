@@ -553,9 +553,18 @@ const arrayPairSum = (nums) => {
 // console.log(arrayPairSum([1, 4, 3, 2]));
 
 const heightChecker = (heights) => {
-  const expected = [];
-  for (let i = 0; i < heights.length; i++) {}
-  console.log(expected);
+  const expected = heights.slice().sort((a, b) => a - b);
+  let counter = 0;
+
+  heights.forEach((_, i) => {
+    if (heights[i] !== expected[i]) {
+      counter++;
+    }
+  });
+
+  return counter;
 };
 
-console.log(heightChecker([1, 1, 4, 2, 1, 3]));
+// console.log(heightChecker([1, 1, 4, 2, 1, 3]));
+
+var subsetsWithDup = function (nums) {};
