@@ -567,4 +567,76 @@ const heightChecker = (heights) => {
 
 // console.log(heightChecker([1, 1, 4, 2, 1, 3]));
 
-var subsetsWithDup = function (nums) {};
+var subsetsWithDup = function (nums) {
+  const res = [];
+  const result = [];
+  const obj = {};
+  const index = 0;
+
+  const helper = (res, data, index, result) => {
+    const key = res.sort().toString();
+
+    if (!obj[key]) {
+      result.push(res);
+      obj[key] = 1;
+    }
+
+    for (let i = index; i < data.length; i++) {
+      helper([...res, data[i]], data, i + 1, result);
+    }
+
+    return result;
+  };
+
+  return helper(res, nums, index, result);
+};
+
+console.log(subsetsWithDup([1, 2, 2]));
+
+const pathSum = (root, targetSum) => {
+  const result = [];
+  const index = 0;
+  const queue = [];
+
+  function dfs(node, sum, path) {
+    if (!node) return;
+
+    sum += node.val;
+    path.push(node.val);
+
+    if (!node.left && !node.right) {
+      if (sum === targetSum) {
+        result.push(path);
+      }
+      return;
+    }
+
+    dfs(node.left, sum, [...path]);
+    dfs(node.right, sum, [...path]);
+  }
+
+  dfs(root, index, queue);
+
+  return result;
+};
+
+var canBeIncreasing = function (nums) {
+  let prev = -1;
+  let count = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] <= prev) {
+      if (count === 1) return false;
+      count++;
+      if (nums[i] <= (nums[i - 2] || min)) {
+        prev = nums[i - 1];
+      } else {
+        prev = nums[i];
+      }
+    } else {
+      prev = nums[i];
+    }
+  }
+  return true;
+};
+
+console.log(canBeIncreasing([1, 2, 10, 5, 7]));
